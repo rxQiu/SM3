@@ -156,8 +156,9 @@ def rho_attack( m, num):
         if(V_1[0:num] == V_2[0:num]):
             return V_1,V_2,count
 ```
-实验结果如下,使用了完整的64轮SM3对于4、8、12、16bit进行了碰撞,可以看见随着碰撞比特数目越多,其寻找碰撞的时间越长,符合实际情况.  
-截图: [实验3_8bit](https://user-images.githubusercontent.com/104824678/181914237-46c29c69-4dbc-45a9-95f2-d980fe111e00.png)
+实验结果如下,使用了完整的64轮SM3对于8、12、16bit进行了碰撞,可以看见随着碰撞比特数目越多,其寻找碰撞的时间越长,符合实际情况.  
+截图: [实验3_8bit](https://user-images.githubusercontent.com/104824678/181914237-46c29c69-4dbc-45a9-95f2-d980fe111e00.png)[实验3_12bit](https://user-images.githubusercontent.com/104824678/181914318-8bbe3946-ef0f-42ab-a075-87cf83d30215.png)
+
 
 
 
