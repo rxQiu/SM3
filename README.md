@@ -178,6 +178,7 @@ def rho_attack( m, num):
 截图:  [实验3_8bit](https://user-images.githubusercontent.com/104824678/181914237-46c29c69-4dbc-45a9-95f2-d980fe111e00.png)  
 [实验3_12bit](https://user-images.githubusercontent.com/104824678/181914318-8bbe3946-ef0f-42ab-a075-87cf83d30215.png)  
 16bit碰撞如图:  
+![实验3_16bit](https://user-images.githubusercontent.com/104824678/181916670-d9d2ee67-d45d-4574-918f-23b0f4a73985.png)
 
 
 
