@@ -122,6 +122,7 @@ def SM3(message):
         V = CF(tmp,m_padding[128*i:128*i+128])
     return V
 ```
+结果如图所示,可以看到输出结果一致.
 ![sm3测试](https://user-images.githubusercontent.com/104824678/181903312-450a2e63-5676-4791-a662-940048da9d75.png)
 ![网站测试](https://user-images.githubusercontent.com/104824678/181903339-22ff6234-d22a-4185-959b-afe079360a0e.png)
 
