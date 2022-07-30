@@ -5,7 +5,7 @@
 1.python SM3实现
 2.SM3生日攻击
 3.The Rho method of SM3
-4.SM3长度拓展攻击`
+4.SM3长度拓展攻击
 ```  
 ### 1.SM3实现(参考国家标准文档)
 tips:所使用的结构为str,能将消息哈希出结果  
