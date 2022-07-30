@@ -145,6 +145,10 @@ def brith_attack( num):
             return (message1,hash1), (message2,hash2),count
 ```
 实验结果如下图,输出了包含消息16进制,以及对应的哈希值:  
+[实验2_8bit](https://user-images.githubusercontent.com/104824678/181915821-52b2baae-3531-4b6b-8fe9-eb88a822b3ee.png)  
+[实验2_12bit](https://user-images.githubusercontent.com/104824678/181915826-11655e24-9fb5-46d1-80b6-21c046aa1366.png)  
+[实验2_16bit](https://user-images.githubusercontent.com/104824678/181915831-fbfe18fb-6a46-4032-88a8-65f9bb280aed.png)  
+![实验2_20bit](https://user-images.githubusercontent.com/104824678/181915835-393184ff-f623-437e-8818-d55e45443248.png)
 
 ### 3.The Rho method of SM3 
 Rho方法原理为一个随机串进行n多次的哈希后,会进入一个圆环内,也就是说从圆外一点形成一个圆环必然两点会重合.对于我们的哈希值而言就找到了一组碰撞.因此可以使用Rho方法寻找碰撞.  
