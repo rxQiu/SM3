@@ -59,6 +59,5 @@ def Expansion(message_lump):
         num_1 = int( W_0[k+4],16)
         tmp = hex(num_0 ^ num_1)[2:].zfill(8)
         W_1.append( tmp )
-    return W_0,W_1
- ```
+    return W_0,W_1```
    
