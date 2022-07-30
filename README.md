@@ -108,4 +108,18 @@ def GG(X,Y,Z,mode):
 ```
 
 P置换存在两种,因此写了两个函数.初始量Tj存放于数组当中,前16轮使用Tj[0],后48轮使用TJ[1].初始IV在文档中已给.  
+#### 1.4输出结果
+SM3将消息每512bit进行分组,对于每一块分组调用压缩函数进行迭代计算,V'=CF(B',V).
+```python
+def SM3(message):
+    #经过填充
+    m_padding = padding(message)
+    lenth = len(m_padding)
+    V=iv
+    #对于每一个消息分组进行压缩函数,更新迭代的V
+    for i in range(lenth //128):
+        tmp = V
+        V = CF(tmp,m_padding[128*i:128*i+128])
+    return V
+```
 
