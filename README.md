@@ -167,5 +167,7 @@ def rho_attack( m, num):
 
 ![长度拓展攻击](https://user-images.githubusercontent.com/104824678/181911959-b82131e4-01e0-4058-962e-20322422f6d1.png)
 
+若攻击者已知消息长度和其杂凑值,可以构造出M'包含M的消息杂凑值.
+![实验4](https://user-images.githubusercontent.com/104824678/181914568-4ba93fc1-2e2f-4bc5-88fd-c4e3b2afbe3f.png)
 
 
