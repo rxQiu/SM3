@@ -137,7 +137,6 @@ Rho方法原理为一个随机串进行n多次的哈希后,会进入一个圆环
 实现的具体方法类似于整数分解中的Rho方法,让V1每次进行一次哈希,V2每次进行两次哈希,最终形成套圈现象即V1=V2,可以寻找到碰撞.如下图：
 ![Rho](https://user-images.githubusercontent.com/104824678/181913910-1feea42d-b914-4e7e-b519-5c6993857b40.png)  
 
-代码运行需要将sm3.py和该代码放在同一个文件夹中.
 ```
 #传入参数消息16进制,攻击bit数目
 def rho_attack( m, num):
@@ -159,7 +158,8 @@ def rho_attack( m, num):
         if(V_1[0:num] == V_2[0:num]):
             return V_1,V_2,count
 ```
-实验结果如下,使用了完整的64轮SM3对于8、12、16bit进行了碰撞,可以看见随着碰撞比特数目越多,其寻找碰撞的时间越长,符合实际情况.  
+
+代码运行需要将sm3.py和该代码放在同一个文件夹中.实验结果如下,使用了完整的64轮SM3对于8、12、16bit进行了碰撞,可以看见随着碰撞比特数目越多,其寻找碰撞的时间越长,符合实际情况.  
 截图:  [实验3_8bit](https://user-images.githubusercontent.com/104824678/181914237-46c29c69-4dbc-45a9-95f2-d980fe111e00.png)  
 [实验3_12bit](https://user-images.githubusercontent.com/104824678/181914318-8bbe3946-ef0f-42ab-a075-87cf83d30215.png)  
 16bit碰撞如图:  
@@ -169,9 +169,9 @@ def rho_attack( m, num):
 
 ### 4.长度拓展攻击  
 长度拓展攻击是由于MD结果导致的,可以看到我们SM3由于需要对消息进行512分组,因此如果我们在已知消息M和其哈希值的情况下,可以构造一个消息M'= M||Z,使得H(M')= h'.Z其中的若干比特可以有我们任意选取.Z的构造方法为Z=padding(M)+ X.(其中padding(M)为消息填充1、多个0和消息长度的二进制,X为人为任意串).这是因为我们知道H(M),因此需要保证其不变已知，再根据我们任意构造的X,将其作为压缩函数的输入CF(X,H(M)),即可得到h'=H(M') = CF(H(M),Z).具体可以参照慕课密码学引论上.  
-代码运行需要将sm3.py和该代码放在同一个文件夹中.  
-![长度拓展攻击](https://user-images.githubusercontent.com/104824678/181911959-b82131e4-01e0-4058-962e-20322422f6d1.png)
 
+![长度拓展攻击](https://user-images.githubusercontent.com/104824678/181911959-b82131e4-01e0-4058-962e-20322422f6d1.png)  
+代码运行需要将sm3.py和长度拓展攻击.py放在同一个文件夹中.  
 若攻击者已知消息长度和其杂凑值,可以构造出M'包含M的消息杂凑值.
 ![实验4](https://user-images.githubusercontent.com/104824678/181914568-4ba93fc1-2e2f-4bc5-88fd-c4e3b2afbe3f.png)
 
