@@ -4,7 +4,7 @@ Tj = ["79cc4519", "7a879d8a" ]
 iv = "7380166f4914b2b9172442d7da8a0600a96f30bc163138aae38dee4db0fb0e4e"
 
 
-#X,Y,Z为字,mode为1时计算XYZ的异或
+#X,Y,Z位字,mode为1时计算XYZ的异或
 def FF(X,Y,Z,mode):
     x_num = int(X,16)
     y_num = int(Y,16)
@@ -36,9 +36,12 @@ def Rotate_left(X,n):
     #利用切片进行左移，返回结果字,比特长度为32,
     #每左移32位相当于未移动,所以使用切片n模32
     x_bin_rotate = x_bin[n%32:]+x_bin[:n%32]
-    result = int(x_bin_rotate,2)
-    #返回结果16进制
-    return hex(result)[2:].zfill(8)
+    
+    result = "" 
+    for i in range(8):
+        result += hex(int(x_bin_rotate[4*i:4*i+4],2))[2:]
+    return result
+    #return hex(result)[2:].zfill(8)
 
 def P_0(X):
     x_0 = int(X,16)
@@ -58,16 +61,15 @@ def padding(m_hex):
     #数据长度
     m_lenth = len(m_hex)
     m_bin   =  bin(int(m_hex,16))[2:]
-    #对于左侧为0的消息进行填充,这是由于对于16进制01而言,经过上述操作后会成为二进制1,缺少长度,所以zfill功能为在左侧补0到指定长度,即01即可成为0000 0001,而不是简单的1.
+    #对于左侧为0的消息进行填充
     bit = m_bin.zfill(4*m_lenth)
-    #计算填充0的长度
+    #填充长度
     num = 448 - 1 - 4*m_lenth%512
     #数据长度二进制,长度为64位
     m_lenth_bin = bin(4*m_lenth)[2:].zfill(64)
-    #进行填充,填充1和num长度的0和数据长度
     bit_padding = bit+ "1" + num*"0" + m_lenth_bin
-    #16进制串长度
-    words_len = len(bit_padding)//4
+    #消息字长度
+    words_len = len(bit_padding)//8
     #返回填充后的结果字
     return hex(int(bit_padding,2))[2:].zfill(words_len)
 
@@ -82,6 +84,7 @@ def Expansion(message_lump):
         tmp1 = int(W_0[j-16],16)
         tmp2 = int(W_0[j-9],16)
         tmp3 = int(Rotate_left(W_0[j-3],15),16)
+
         tmp4 = int(Rotate_left(W_0[j-13],7),16)
         tmp5 = int(W_0[j-6],16)
         #计算异或
@@ -130,6 +133,7 @@ def CF(V,B):
         SS1 = Rotate_left( hex(tmp_2)[2:].zfill(8) , 7 )
         
         SS2 = hex(int(SS1,16) ^ int(tmp_1,16))[2:].zfill(8)
+        
         tt1_num = ( int(ff,16) + int(D,16) + int(SS2,16) + int(W_1[i],16) )%2**32
         
         TT1 = hex(tt1_num)[2:].zfill(8)
@@ -160,13 +164,37 @@ def SM3(message):
         tmp = V
         V = CF(tmp,m_padding[128*i:128*i+128])
     return V
+
+
+###将消息使用utf-8进行编码
+##plaint = input("")
+##m_byte = plaint.encode()
+##M = binascii.b2a_hex(m_byte)
+##print(M)
+##print(SM3(M))
+
+def brith_attack( num):
+    count = 0
+    while( 1 ):
+        num1 = random.randint(0,2**256)
+        num2 = random.randint(0,2**256)
+        message1 = hex(num1)[2:]
+        message2 = hex(num2)[2:]
+        hash1 = SM3(message1)
+        hash2 = SM3(message2)
+        count += 1
+        if( hash1[0:num] == hash2[0:num]):
+            return (message1,hash1), (message2,hash2),count
+
 if __name__ == "__main__":
-    
-    M = "HELLO"
-    #将消息转化为16进制串
-    m_byte = M.encode()
-    Plaintext = binascii.b2a_hex(m_byte)
-    #传入参数串,进行SM3
-    H = SM3(Plaintext)
-    print("message: ", M)
-    print("hash: ",H)
+    start = time.time()
+    (M1,Hash1),(M2,Hash2),count = brith_attack( 5 )
+    end  = time.time()
+    print("累计尝试次数: ",count)
+    print(M1,"\n hash值为: ",Hash1)
+    print(M2,"\n hash值为: ",Hash2)
+    print("time using:" , end - start,"s")
+
+
+
+        
